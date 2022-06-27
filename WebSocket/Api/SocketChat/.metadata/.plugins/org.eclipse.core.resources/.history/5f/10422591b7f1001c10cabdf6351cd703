@@ -1,0 +1,14 @@
+spring.kafka.jaas.enabled=true
+spring.kafka.jaas.login-module=org.apache.kafka.common.security.plain.PlainLoginModule
+spring.kafka.jaas.options.username=
+spring.kafka.jaas.options.password=
+spring.kafka.bootstrap-servers=
+spring.kafka.properties.security.protocol=SASL_SSL
+spring.kafka.properties.sasl.mechanism=PLAIN
+spring.kafka.template.default-topic=spring
+
+spring.kafka.producer.client-id=event-streams-kafka
+
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer

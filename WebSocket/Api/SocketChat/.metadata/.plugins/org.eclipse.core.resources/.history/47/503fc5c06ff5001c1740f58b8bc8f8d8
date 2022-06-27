@@ -1,0 +1,38 @@
+package com.example.web.socket.SocketChat.webSocket;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+@Component
+public class WebSocketHandler extends TextWebSocketHandler{
+	@Autowired
+	MessageHandler messageHandler;
+	
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+	
+		String parameters[] = session.getUri().getQuery().split("=");
+		for(String str:parameters) {
+			System.out.println(str);
+		}
+	}
+	@Autowired
+	private MessageSender sender;
+
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws Exception {
+		JSONObject jsonObject = new JSONObject(textMessage.getPayload());
+		String topic = jsonObject.getString("topic");
+
+	    // only SEND_MESSAGE topic is available
+	    if (topic == null && !topic.equals("SEND_MESSAGE")) {
+	      return;
+	    }
+	
+	    sender.send(topic, textMessage.getPayload());
+	}
+}

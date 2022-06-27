@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <div class="flex padding-lf-150">
+        <div class="btn col-2" onclick="connection()">
+            <div class="col-2 justify-content">Conectar</div>
+        </div>
+    </div>
+    <script>
+        function connection(){
+
+            var sock = new SockJS("http://localhost:8080/messaging");
+            sock.onopen = function(){
+                console.log('open');
+            }
+            sock.onmessage = function(e){
+                console.log(e.data);
+            }
+            sock.onclose = function(){
+                console.log("close");
+            }
+            // var websocket = new WebSocket(
+            //     "ws://localhost:8080/messaging",
+            //     ['ws','wss','http']
+            // );
+        }
+    </script>
+    <style>
+        .padding-lf-150{
+            padding-left: 150px;
+            padding-right: 150px;
+        }
+        .flex{
+            display:flex;
+        }
+        .col-2{
+            display: flex;
+            flex:2;
+        }
+        .justify-content{
+            justify-content: center;
+        }
+        .btn{
+            padding: 10px;
+            background:#1C1C1C;
+            border-radius: 30px;
+            color:#FFFAFA;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .btn:hover{
+            cursor: pointer;
+
+        }
+    </style>
+</body>
+</html>
